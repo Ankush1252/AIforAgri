@@ -1,0 +1,88 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e0ffe5;
+}
+
+
+.registration-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #a7eaa6;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.registration-form input[type='text'],
+.registration-form input[type='password'] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.registration-form input[type='checkbox'] {
+  margin-right: 5px;
+}
+
+.registration-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.registration-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #7476fc;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.registration-form button:disabled {
+  background-color: #6b9cfc;
+  cursor: not-allowed;
+}
+
+.navbar {
+  background-color: #125c01;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.navbar button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background-color: #45a048;
+}
