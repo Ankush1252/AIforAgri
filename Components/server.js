@@ -1,3 +1,5 @@
+// working code
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -25,7 +27,7 @@ const registeredFarmersSchema = new mongoose.Schema({
   password: String,
 });
 
-const RegisteredFarmer = mongoose.model('registered_farmers', registeredFarmersSchema);
+const RegisteredFarmer = mongoose.model('registered_farmer', registeredFarmersSchema);
 
 app.post('/api/register', async (req, res) => {
   try {
@@ -58,6 +60,7 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// Login logic
 app.post('/api/login', async (req, res) => {
   try {
     const { contactInfo, password } = req.body;
@@ -83,5 +86,67 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ message: 'Server Error' });
   }
 });
+
+// Crop data post
+
+const cropDetailsSchema = new mongoose.Schema({
+  farmerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'registered_farmer'
+  },
+  contactInfo: String,
+  crop1: String,
+  crop2: String,
+  crop3: String,
+  crop4: String,
+  crop5: String
+});
+
+const CropDetails = mongoose.model('crop_details', cropDetailsSchema);
+
+app.post('/api/saveCrops', async (req, res) => {
+  try {
+    const { contactInfo, crop1, crop2, crop3, crop4, crop5 } = req.body;
+
+    const newCropDetails = new CropDetails({
+      contactInfo,
+      crop1,
+      crop2,
+      crop3,
+      crop4,
+      crop5
+    });
+
+    await newCropDetails.save();
+    console.log('Crop details saved successfully');
+    res.status(201).json({ message: 'Crop details saved successfully' });
+  } catch (err) {
+    console.error('Error saving crop details:', err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+//Fetch Crop Data
+// Server-side code (server.js)
+
+app.get('/api/cropHistory/:contactInfo', async (req, res) => {
+  try {
+    const { contactInfo } = req.params;
+
+    // Query the database to fetch crop history for the given contactInfo
+    const cropHistory = await CropDetails.find({ contactInfo });
+
+    if (!cropHistory) {
+      return res.status(404).json({ message: 'Crop history not found' });
+    }
+
+    res.status(200).json(cropHistory);
+  } catch (error) {
+    console.error('Error fetching crop history:', error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
