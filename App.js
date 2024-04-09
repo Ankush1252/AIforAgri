@@ -1,7 +1,9 @@
-import React from 'react';
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import './Login.css'
+import './Login.css';
+import './UserDash.css';
+import './style.css'
+
 import LoginPage from './Components/Loginpage';
 import NavBar from './Components/Navbar';
 import RegistrationForm from './Components/RegistrationForm';
@@ -9,17 +11,28 @@ import UserDash from './Components/UserDash';
 
 const App = () => {
   const [showRegistration, setShowRegistration] = useState(true);
-  const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+  const [contactInfo,setContactInfo] =  useState('')
 
   const handleLoginClick = () => {
     setShowRegistration(false);
-    setShowLogin(true);
-  }
-  const handleLogin = () => {
     
-  
+  };
+
+  const handleLogoutClick = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+  };
+
+  const handleLogoClick = () => {
+    setShowRegistration(true);
+  };
+
+  const handleLogin = (username, contactInfo) => {
     setIsLoggedIn(true);
+    setUsername(username);
+    setContactInfo(contactInfo)
   };
 
   const handleSubmit = async (formData) => {
@@ -31,7 +44,7 @@ const App = () => {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (response.ok) {
       
         alert('Registration successful');
@@ -46,15 +59,12 @@ const App = () => {
   };
 
   return (
-    
     <div>
-      <NavBar onLoginClick={handleLoginClick} />
+      <NavBar onLoginClick={handleLoginClick} onLogoutClick={handleLogoutClick} onLogoClick={handleLogoClick} isLoggedIn={isLoggedIn} />
       {showRegistration && <RegistrationForm onSubmit={handleSubmit} />}
-      {showLogin && <LoginPage onLogin={handleLogin} />}
-      {isLoggedIn && <UserDash />}
+      {!showRegistration && !isLoggedIn && <LoginPage onLogin={handleLogin} />}
+      {isLoggedIn && <UserDash userName={username} contactInfo={contactInfo} />}
     </div>
-    
-  
   );
 };
 
