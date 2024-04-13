@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-function UserDash({ userName, contactInfo }) {
+function UserDash({ userName, email }) {
   const [activeTab, setActiveTab] = useState('crops');
   const [formData, setFormData] = useState({
-    contactInfo: contactInfo,
+    email: email,
     crop1: '',
     crop2: '',
     crop3: '',
@@ -17,7 +17,7 @@ function UserDash({ userName, contactInfo }) {
     if (tab === 'history') {
       fetchCropHistory();
     } else if (tab === 'recommendation') {
-      window.location.href = 'https://youtube.com/';
+      window.location.href = 'https://sad-jobs-occur.loca.lt/';
     }
   };
 
@@ -47,7 +47,7 @@ function UserDash({ userName, contactInfo }) {
       }
 
       setFormData({
-        contactInfo: contactInfo,
+        email: email,
         crop1: '',
         crop2: '',
         crop3: '',
@@ -64,7 +64,7 @@ function UserDash({ userName, contactInfo }) {
 
   const fetchCropHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/cropHistory/${contactInfo}`);
+      const response = await fetch(`http://localhost:5000/api/cropHistory/${email}`);
 
       if (!response.ok) {
         throw new Error('Failed to fetch crop history');
@@ -112,27 +112,27 @@ function UserDash({ userName, contactInfo }) {
           <div className="content">
             <form className="form1" onSubmit={handleSubmit}>
               <div className="form-group">
-                <label htmlFor="contactInfo"></label>
-                <input type="hidden" id="contactInfo" name="contactInfo" value={formData.contactInfo}  />
+                <label htmlFor="email"></label>
+                <input type="hidden" id="email" name="email" value={formData.email}  />
               </div>
               <div className="form-group">
-                <label htmlFor="crop1">Crop 1</label>
+                <label htmlFor="crop1"> Add Recent Crops</label>
                 <input type="text" id="crop1" name="crop1" value={formData.crop1} onChange={handleChange} placeholder="Crop 1" />
               </div>
               <div className="form-group">
-                <label htmlFor="crop2">Crop 2</label>
+                <label htmlFor="crop2"></label>
                 <input type="text" id="crop2" name="crop2" value={formData.crop2} onChange={handleChange} placeholder="Crop 2" />
               </div>
               <div className="form-group">
-                <label htmlFor="crop3">Crop 3</label>
+                <label htmlFor="crop3"></label>
                 <input type="text" id="crop3" name="crop3" value={formData.crop3} onChange={handleChange} placeholder="Crop 3" />
               </div>
               <div className="form-group">
-                <label htmlFor="crop4">Crop 4</label>
+                <label htmlFor="crop4"></label>
                 <input type="text" id="crop4" name="crop4" value={formData.crop4} onChange={handleChange} placeholder="Crop 4" />
               </div>
               <div className="form-group">
-                <label htmlFor="crop5">Crop 5</label>
+                <label htmlFor="crop5"></label>
                 <input type="text" id="crop5" name="crop5" value={formData.crop5} onChange={handleChange} placeholder="Crop 5" />
               </div>
               <button type="submit" >Submit</button>
@@ -144,7 +144,7 @@ function UserDash({ userName, contactInfo }) {
       case 'history':
         return (
           <div className="content">
-            <h3>Crop History</h3>
+            <h1>Crop History</h1>
             {renderCropHistory()}
           </div>
         );
@@ -156,7 +156,7 @@ function UserDash({ userName, contactInfo }) {
   return (
     <>
       <div className="name-and-details">
-        <h2>{userName}</h2>
+        <h1>{userName}</h1>
       </div>
       <div className="user-data-screen">
         <div className="sidebar">
