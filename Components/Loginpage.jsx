@@ -1,11 +1,13 @@
-// Loginpage.jsx
 import React, { useState } from 'react';
+import ResetPassword from './ResetPassword';
 
-const Loginpage = ({ onLogin }) => {
+const LoginPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({
-    contactInfo: '',
+    email: '',
     password: '',
   });
+
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,43 +27,67 @@ const Loginpage = ({ onLogin }) => {
         },
         body: JSON.stringify(formData),
       });
-  
-      if (!response.ok) {
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(`Login successful. Welcome, ${data.name}`);
+        // Pass both username and email to the onLogin function
+        onLogin(data.name, formData.email);
+      } else {
         throw new Error('Login failed');
       }
-  
-      // Login successful
-      const data = await response.json();
-      alert(`Login successful. Welcome, ${data.name}`);
-  
-      setFormData({
-        contactInfo: '',
-        password: '',
-      });
-  
-      // Pass both username and contactInfo to the onLogin function
-      onLogin(data.name, formData.contactInfo);
-  
     } catch (error) {
       console.error('Error:', error);
       alert('Login failed. Please check your credentials and try again.');
     }
   };
-  
+
+  const handleResetPassword = () => {
+    setShowResetPassword(true);
+  };
+
+  const handleResetPasswordClose = () => {
+    setShowResetPassword(false);
+  };
 
   return (
-    <form className="login-page" onSubmit={handleLogin}>
-      <div className="form-group">
-        <label htmlFor="contactInfo">Contact Number</label>
-        <input type="text" id="contactInfo" name="contactInfo" value={formData.contactInfo} onChange={handleChange} required />
-      </div>
-      <div className="form-group">
-        <label htmlFor="password">Password</label>
-        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-container">
+      {!showResetPassword && (
+        <form className="login-page" onSubmit={handleLogin}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+              />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter your password"
+                required
+              />
+          </div>
+          <button type="submit">Login</button>
+          <button type="button" onClick={handleResetPassword} >Reset Password</button>
+        </form>
+      )}
+
+      {showResetPassword && (
+        <ResetPassword email={formData.email} onClose={handleResetPasswordClose} />
+      )}
+    </div>
   );
 };
 
-export default Loginpage;
+export default LoginPage;
