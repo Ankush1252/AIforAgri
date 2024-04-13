@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const RegistrationForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     name: '',
-    contactInfo: '',
+    email: '',
     state: '',
     district: '',
     taluka: '',
@@ -24,7 +24,7 @@ const RegistrationForm = ({ onSubmit }) => {
     await onSubmit(formData);
     setFormData({
       name: '',
-      contactInfo: '',
+      email: '',
       state: '',
       district: '',
       taluka: '',
@@ -38,9 +38,9 @@ const RegistrationForm = ({ onSubmit }) => {
       <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
       <input
         type="text"
-        name="contactInfo"
-        placeholder="Contact Info"
-        value={formData.contactInfo}
+        name="email"
+        placeholder="Email"
+        value={formData.email}
         onChange={handleChange}
         required
       />
