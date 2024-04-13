@@ -1,37 +1,40 @@
 /* LoginPage.css */
 .login-page {
-    max-width: 400px;
+    font-family: 'Courier New', Courier, monospace;
+    max-width: 500px;
     margin: 20px auto;
-    padding: 40px;
+    padding: 50px;
     background-color: #a7eaa6;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  .login-page h2 {
+.login-page h2 {
     margin-bottom: 20px;
     text-align: center;
-  }
+}
   
-  .form-group {
+.form-group {
     margin-bottom: 20px;
-  }
+    text-align: center;
+}
   
-  .form-group label {
+.form-group label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  .form-group input[type="text"],
-  .form-group input[type="password"] {
-    width: 95%;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+    text-align: center;
+}
   
-  button[type="submit"] {
+button[type="submit"] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -40,9 +43,30 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
+}
   
-  button[type="submit"]:hover {
+button[type="submit"]:hover {
     background-color:  #5659f9;
+}
+  button[type = "button"]{
+    color: #5e53fb;
+  }
+  button[type = "button"]:hover {
+    color: #241aa5;
   }
   
+.reset-page{ 
+    font-family: 'Courier New', Courier, monospace;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 50px;
+    background-color: #a7eaa6;
+    border-radius: 8px;
+  }
+
+.btn{
+  color: #0f0000;
+}
+.btn:hover{
+  color: #241aa5;
+}
