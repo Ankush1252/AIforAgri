@@ -141,7 +141,7 @@ const sendOTP = async (email, otp) => {
     service: 'gmail',
     auth: {
       user: 'ankushawate1252@gmail.com',
-      pass: 'ngpd jprd gmxl ekgf',
+      pass: 'ENTER PASSKEY',
     },
   });
 
